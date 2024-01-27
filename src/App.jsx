@@ -6,6 +6,7 @@ function App() {
   // Access your API key (see "Set up your API key" above)
 
   const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
+  console.log(import.meta.env.VITE_GOOGLE_API_KEY);
 
   async function genRun(input) {
     // For text-only input, use the gemini-pro model
@@ -14,38 +15,47 @@ function App() {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    console.log(prompt);
+    // console.log(prompt);
     console.log("writing");
     console.log(text);
     console.log("done");
-    document.getElementById("output").style.className =
-      "m-10 p-10 bg-white text-black rounded-md";
-    document.getElementById("output").innerHTML = "<pre>" + text + "</pre>";
+    document.getElementById("output").innerHTML = text;
   }
 
   const capCheck = (e) => {
     e.preventDefault();
     genRun(
-      "what ever the name is given in the end use it to name a guy who's born with a magic power and narrate a small poem : " +
-        e.target.name.value
+      ` # I am gonna give you a word or sentence or prompt, somehow establish a connection with the number 7. and if it it established say THALA FOR A REASON rather than connection established\
+      # For Example: \
+      2023 = 2+2+3 =7,\
+      Gaurav = 1st letter G = 7th letter, \
+      Sunset has 6 letters + 1 word = 7,\
+      Lol : 'Lol' has 3 letters and 'Haha' has 4 letters, together they make 7 letters.\
+      Development: Development can be broken down into two words 'develop' and 'ment' develop is a 7 letter word = 7,\
+      Rohit: The sum of the numerical positions of the letters (R=18, O=15, H=8, I=9, T=20) is 70, and 7 + 0 = 7, \
+      Had break up with Girlfriend: You had break up with your gf because your luck was on 7th planet\
+      #GENERATE WITH ANY ONE OF TRICK FROM THE ABOVE, SOMETIMES ROAST IN THE RESPONSE\
+      #KINDLY RECHECK AND VERIFY IF THE LOGIC IS CORRECT OR NOT\
+      ## DON'T GENERATE MORE THAN 1 SENTENCE\n HERE IS MY WORD:${e.target.name.value}`
     );
+    // console.log(e.target.name.value);
 
-    if (e.target.name.value === "thala") {
-      document.getElementById("app").style.backgroundImage =
-        "url('https://wallpapercave.com/wp/wp12016875.jpg')";
+    // if (e.target.name.value === "thala") {
+    //   document.getElementById("app").style.backgroundImage =
+    //     "url('https://wallpapercave.com/wp/wp12016875.jpg')";
 
-      document.getElementById("app").style.overflow = "hidden";
-      document.getElementById("app").style.backgroundSize = "cover";
-      document.getElementById("app").style.backgroundRepeat = "no-repeat";
-      document.getElementById("app").style.backgroundPosition = "center";
-      document.getElementById("app").style.backgroundAttachment = "fixed";
-      document.getElementById("formContainer").style.display = "none";
-      document.getElementById("output").style.display = "block";
-      
-    } else {
-      document.getElementById("app").style.background = "red";
-      document.getElementById("app").style.backgroundSize = "auto";
-    }
+    //   document.getElementById("app").style.overflow = "hidden";
+    //   document.getElementById("app").style.backgroundSize = "cover";
+    //   document.getElementById("app").style.backgroundRepeat = "no-repeat";
+    //   document.getElementById("app").style.backgroundPosition = "center";
+    //   document.getElementById("app").style.backgroundAttachment = "fixed";
+    //   document.getElementById("formContainer").style.display = "none";
+    //   document.getElementById("output").style.display = "block";
+    // } else {
+    //   document.getElementById("app").style.background = "red";
+    //   document.getElementById("app").style.backgroundSize = "auto";
+
+    // }
   };
 
   return (
@@ -84,9 +94,12 @@ function App() {
           </form>
         </div>
         <div
-          className="m-10 p-5  bg-slate-400 text-black rounded-md "
+          className="m-10 p-5 min-h-10 min-w-[470px] bg-slate-400 text-black rounded-md text-center text-xl font-bold"
           id="output"
-        ></div>
+        >
+          {" "}
+          <p>THIS SONG FOR SOUPBOI&apos;S U</p> 
+        </div>
       </div>
     </>
   );
