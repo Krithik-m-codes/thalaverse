@@ -40,6 +40,8 @@ function App() {
       document.getElementById("app").style.backgroundPosition = "center";
       document.getElementById("app").style.backgroundAttachment = "fixed";
       document.getElementById("formContainer").style.display = "none";
+      document.getElementById("output").style.display = "block";
+      
     } else {
       document.getElementById("app").style.background = "red";
       document.getElementById("app").style.backgroundSize = "auto";
