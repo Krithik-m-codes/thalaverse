@@ -1,12 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const GOOGLE_API_KEY = "AIzaSyC8xYSlkwByqGRElO4H9FA7Dasaa_yDJvE";
-
 function App() {
   // Access your API key (see "Set up your API key" above)
 
-  const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
-  console.log(import.meta.env.VITE_GOOGLE_API_KEY);
+  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
 
   async function genRun(input) {
     // For text-only input, use the gemini-pro model
@@ -97,8 +94,7 @@ function App() {
           className="m-10 p-5 min-h-10 min-w-[470px] bg-slate-400 text-black rounded-md text-center text-xl font-bold"
           id="output"
         >
-          {" "}
-          <p>THIS SONG FOR SOUPBOI&apos;S U</p> 
+          <p>THIS SONG FOR SOUPBOI&apos;S U</p>
         </div>
       </div>
     </>
