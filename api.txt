@@ -1,4 +1,4 @@
-    genRun(
+    
       ` # I am gonna give you a word or sentence or prompt, somehow establish a connection with the number 7. and if it it established say THALA FOR A REASON rather than connection established\
       # For Example: \
       2023 = 2+2+3 =7,\
@@ -11,4 +11,4 @@
       #GENERATE WITH ANY ONE OF TRICK FROM THE ABOVE, SOMETIMES ROAST IN THE RESPONSE\
       #KINDLY RECHECK AND VERIFY IF THE LOGIC IS CORRECT OR NOT\
       ## DON'T GENERATE MORE THAN 1 SENTENCE\n HERE IS MY WORD:${e.target.name.value}`
-    );
+    
