@@ -1,100 +1,123 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Code for the App component goes here.
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useState } from "react";
+import ShareList from "./components/ShareList.jsx";
 
 function App() {
-  // Access your API key (see "Set up your API key" above)
+  let [state, setState] = useState({
+    value: " ",
+    copied: false,
+  });
 
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
+  let x = document.getElementById("audio-thala");
 
-  async function genRun(input) {
-    // For text-only input, use the gemini-pro model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const prompt = input;
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
-    // console.log(prompt);
-    console.log("writing");
-    console.log(text);
-    console.log("done");
-    document.getElementById("output").innerHTML = text;
+  function playAudio() {
+    x.play();
+  }
+
+  function pauseAudio() {
+    x.pause();
   }
 
   const capCheck = (e) => {
     e.preventDefault();
-    genRun(
-      ` # I am gonna give you a word or sentence or prompt, somehow establish a connection with the number 7. and if it it established say THALA FOR A REASON rather than connection established\
-      # For Example: \
-      2023 = 2+2+3 =7,\
-      Gaurav = 1st letter G = 7th letter, \
-      Sunset has 6 letters + 1 word = 7,\
-      Lol : 'Lol' has 3 letters and 'Haha' has 4 letters, together they make 7 letters.\
-      Development: Development can be broken down into two words 'develop' and 'ment' develop is a 7 letter word = 7,\
-      Rohit: The sum of the numerical positions of the letters (R=18, O=15, H=8, I=9, T=20) is 70, and 7 + 0 = 7, \
-      Had break up with Girlfriend: You had break up with your gf because your luck was on 7th planet\
-      #GENERATE WITH ANY ONE OF TRICK FROM THE ABOVE, SOMETIMES ROAST IN THE RESPONSE\
-      #KINDLY RECHECK AND VERIFY IF THE LOGIC IS CORRECT OR NOT\
-      ## DON'T GENERATE MORE THAN 1 SENTENCE\n HERE IS MY WORD:${e.target.name.value}`
-    );
-    // console.log(e.target.name.value);
-
-    // if (e.target.name.value === "thala") {
-    //   document.getElementById("app").style.backgroundImage =
-    //     "url('https://wallpapercave.com/wp/wp12016875.jpg')";
-
-    //   document.getElementById("app").style.overflow = "hidden";
-    //   document.getElementById("app").style.backgroundSize = "cover";
-    //   document.getElementById("app").style.backgroundRepeat = "no-repeat";
-    //   document.getElementById("app").style.backgroundPosition = "center";
-    //   document.getElementById("app").style.backgroundAttachment = "fixed";
-    //   document.getElementById("formContainer").style.display = "none";
-    //   document.getElementById("output").style.display = "block";
-    // } else {
-    //   document.getElementById("app").style.background = "red";
-    //   document.getElementById("app").style.backgroundSize = "auto";
-
-    // }
+    console.log(e.target.thala.value);
+    if (
+      e.target.thala.value === "thala" ||
+      e.target.thala.value === "dhoni" ||
+      e.target.thala.value === "krithik" ||
+      e.target.thala.value === "7"
+    ) {
+      playAudio();
+      document.getElementById("app").style.background =
+        "url('/bg-thala-vid.mp4') repeat center center fixed";
+      document.getElementById("app").style.backgroundSize = "cover";
+      document.getElementById("app").style.animation = "videoPlay infinite";
+      document.getElementById("app").style.pointerEvents = "none";
+      alert("You are a thala cap checker");
+    } else {
+      alert("You are not a thala cap checker");
+    }
   };
 
   return (
     <>
       <div
-        className="w-full min-h-screen max-h-max bg-slate-900 justify-center items-center flex flex-col gap-20"
+        className="w-full min-h-screen max-h-max bg-[url('/bg-thala.jpeg')] bg-center bg-cover justify-center items-center flex flex-col gap-20 relative overflow-hidden"
         id="app"
       >
-        <div>
-          <h1 className="text-4xl font-bold text-white">
+        <div className="absolute bottom-10 rounded-full left-10 w-10 h-10 bg-white bg-opacity-50">
+          <audio src="/bhole_jo_koyal.mp3" id="audio-thala"></audio>
+          <img
+            src="/thala.png"
+            className="animate-[spin_3s_linear_infinite] rounded-full w-10 h-10"
+            alt="thala"
+            onClick={pauseAudio}
+          />
+          <div></div>
+        </div>
+
+        {/*Side header*/}
+        <div className="absolute top-10 left-10 bg-yellow-500 rounded-md bg-clip-padding px-5 py-2 backdrop-filter backdrop-blur-lg bg-opacity-20 border border-gray-100">
+          <h1 className=" text-md font-bold text-white ">
             Are you thala <b className=" text-yellow-300">cap</b> checker
           </h1>
         </div>
-        <div id="formContainer">
+
+        <div
+          id="formContainer"
+          className="flex flex-col gap-10 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 border border-gray-200 px-10 py-4"
+        >
           <form
             onSubmit={capCheck}
-            className="flex flex-col gap-10 bg-slate-800 p-10 rounded "
+            className="flex flex-col gap-6 bg-transparent p-10 rounded  relative"
           >
-            <label className="text-white text-xl" htmlFor="name">
-              Enter your name :
-            </label>
-            <input
-              type="text"
-              className="bg-gray-900 text-white w-96 h-12 rounded-lg text-center"
-              placeholder="Enter your name"
-              name="name"
-              id="name"
-            />
+            <div className="flex gap-4 rounded">
+              <input
+                type="text"
+                className="bg-gray-800 text-white w-96 h-15 rounded-lg text-left p-5"
+                placeholder="Enter your thala cap number"
+                onChange={({ target: { value } }) =>
+                  setState({ value, copied: false })
+                }
+                name="thala"
+                id="thala"
+              />
+              <CopyToClipboard
+                text={state.value}
+                onCopy={() => setState({ copied: true })}
+              >
+                <button className="bg-blue-500 text-white font-bold px-4 py-2 rounded-lg hover:bg-blue-600">
+                  <img
+                    width="32"
+                    height="32"
+                    className="object-contain font-bold"
+                    src="https://img.icons8.com/pastel-glyph/64/FFFFFF/clipboard--v3.png"
+                    alt="clipboard--v3"
+                  />
+                </button>
+              </CopyToClipboard>
+
+              {state.copied ? (
+                <span
+                  className="absolute right-1/4 top-14 text-center px-2 py-1 rounded-lg stroke-emerald-200"
+                  style={{ color: "red", backgroundColor: "white" }}
+                >
+                  Copied.
+                </span>
+              ) : null}
+            </div>
+
             <input
               type="submit"
-              className="bg-yellow-300 w-96 h-12 rounded-lg text-center cursor-pointer "
+              className="bg-yellow-300 w-56 h-12 rounded-lg text-center cursor-pointer hover:bg-yellow-400 hover:border self-center"
               value="Check your cap status "
               name="submit"
               id="submit"
             />
           </form>
-        </div>
-        <div
-          className="m-10 p-5 min-h-10 min-w-[470px] bg-slate-400 text-black rounded-md text-center text-xl font-bold"
-          id="output"
-        >
-          <p>THIS SONG FOR SOUPBOI&apos;S U</p>
+          {/*Share list compoent is used here*/}
+          <ShareList />
         </div>
       </div>
     </>
