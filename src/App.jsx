@@ -9,15 +9,14 @@ function App() {
     copied: false,
   });
 
-  let x = document.getElementById("audio-thala");
+  const audio = document.getElementById("audio-thala");
+  const playAudio = () => {
+    audio.play();
+  };
 
-  function playAudio() {
-    x.play();
-  }
-
-  function pauseAudio() {
-    x.pause();
-  }
+  const pauseAudio = () => {
+    audio.pause();
+  };
 
   const capCheck = (e) => {
     e.preventDefault();
@@ -29,11 +28,7 @@ function App() {
       e.target.thala.value === "7"
     ) {
       playAudio();
-      document.getElementById("app").style.background =
-        "url('/bg-thala-vid.mp4') repeat center center fixed";
-      document.getElementById("app").style.backgroundSize = "cover";
-      document.getElementById("app").style.animation = "videoPlay infinite";
-      document.getElementById("app").style.pointerEvents = "none";
+      document.getElementById("bg-video-thala").hidden = false;
       alert("You are a thala cap checker");
     } else {
       alert("You are not a thala cap checker");
@@ -43,9 +38,16 @@ function App() {
   return (
     <>
       <div
-        className="w-full min-h-screen max-h-max bg-[url('/bg-thala.jpeg')] bg-center bg-cover justify-center items-center flex flex-col gap-20 relative overflow-hidden"
+        className="w-full min-h-screen max-h-max bg-[url('/bg-thala.jpeg')] bg-center bg-cover justify-center items-center flex relative overflow-hidden"
         id="app"
       >
+        <div className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-screen -z-1 overflow-hidden" hidden id="bg-video-thala" >
+          <video className="bg-video__content m-auto left-0 right-0 " autoPlay muted loop>
+            <source src="/bg-thala-vid.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        {/*Thala audio image*/}
         <div className="absolute bottom-10 rounded-full left-10 w-10 h-10 bg-white bg-opacity-50">
           <audio src="/bhole_jo_koyal.mp3" id="audio-thala"></audio>
           <img
@@ -64,9 +66,10 @@ function App() {
           </h1>
         </div>
 
+        {/*Form container*/}
         <div
           id="formContainer"
-          className="flex flex-col gap-10 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 border border-gray-200 px-10 py-4"
+          className="flex flex-col gap-6 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 border border-gray-200 px-10 py-4"
         >
           <form
             onSubmit={capCheck}
@@ -107,10 +110,9 @@ function App() {
                 </span>
               ) : null}
             </div>
-
             <input
               type="submit"
-              className="bg-yellow-300 w-56 h-12 rounded-lg text-center cursor-pointer hover:bg-yellow-400 hover:border self-center"
+              className="bg-yellow-300 mt-6 w-56 h-12 rounded-lg text-center cursor-pointer hover:bg-yellow-400 hover:border self-center"
               value="Check your cap status "
               name="submit"
               id="submit"
